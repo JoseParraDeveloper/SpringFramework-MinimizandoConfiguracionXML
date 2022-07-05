@@ -1,0 +1,76 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.1.xsd"
+	default-autowire="no"
+	>
+
+	<context:property-placeholder
+		location="classpath:dataCompany.properties" />
+
+	<!-- DEPENDENCY: ENGINE -->
+	<bean id="engineCar" class="com.joseparradev.model.EngineCar"
+		autowire-candidate="false">
+
+	</bean>
+
+	<bean id="engine" class="com.joseparradev.model.EngineTruck"
+		autowire-candidate="false">
+
+	</bean>
+
+	<bean id="engineAirplane"
+		class="com.joseparradev.model.EngineAirplane" primary="true">
+
+	</bean>
+
+	<!-- BEANS: INYECTANDO LA DEPENDENCIA USANDO EL CONSTRUCTOR -->
+
+	<bean id="car" class="com.joseparradev.model.Car">
+		<constructor-arg ref="engineCar"></constructor-arg>
+		<property name="nameCompany" value="${nameCompany}"></property>
+		<property name="mailCompany" value="${email}"></property>
+		<property name="functionVehicleCompany"
+			value="${functionCar}"></property>
+	</bean>
+
+	<!-- BEANS: INYECTANDO LA DEPENDENCIA USANDO AUTO CONEXIÓN autowire="byName" -->
+
+	<bean id="truck" class="com.joseparradev.model.Truck"
+		autowire="byName">
+		<property name="nameCompany" value="${nameCompany}"></property>
+		<property name="mailCompany" value="${email}"></property>
+		<property name="functionVehicleCompany"
+			value="${functionTruck}"></property>
+	</bean>
+
+	<!-- BEANS: INYECTANDO LA DEPENDENCIA USANDO AUTO CONEXIÓN autowire="byType" -->
+
+	<bean id="airplane" class="com.joseparradev.model.Airplane"
+		autowire="byType">
+		<property name="nameCompany" value="${nameCompany}"></property>
+		<property name="mailCompany" value="${email}"></property>
+		<property name="functionVehicleCompany"
+			value="${functionAirplane}"></property>
+	</bean>
+
+	<!-- AUTO CONEXIONADO MEDIANTE CONSTRUCTORES: INYECTA EL BEAN con id= engineAirplane -->
+
+	<bean id="car1" class="com.joseparradev.model.Car"
+		autowire="constructor">
+		<property name="nameCompany" value="${nameCompany}"></property>
+		<property name="mailCompany" value="${email}"></property>
+		<property name="functionVehicleCompany"
+			value="${functionCar}"></property>
+	</bean>
+
+
+
+
+
+
+
+</beans>
