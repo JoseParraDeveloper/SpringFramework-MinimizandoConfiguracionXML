@@ -1,8 +1,12 @@
 package com.joseparradev.model;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public abstract class Vehicle {
 
+	@Value("${nameCompany}")
 	private String nameCompany;
+	@Value("${email}")
 	private String mailCompany;
 	private String functionVehicleCompany;
 	private String color;
